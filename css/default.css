@@ -385,8 +385,8 @@ pre {
     #mixedkey {
         background-image: url(../images/mixedkeysmall.png);
         height: 0;
-        padding-top: 90.32%; /* (img-height / img-width * widthpercentage) */
-                             /* (       560 /       620 *             100) */
+        padding-top: 92.74%; /* (img-height / img-width * widthpercentage) */
+                             /* (       575 /       620 *             100) */
     }
     #fragmentcache {
         background-image: url(../images/fragmentcachesmall.png);
