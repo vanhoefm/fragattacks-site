@@ -428,6 +428,7 @@
 			<li><a href="#whynotadopted">Why was the defense against the aggregation attack (CVE-2020-24588) not adopted?</a></li>
 			<li><a href="#notpatched">My device isn't patched yet, what can I do?</a></li>
 			<li><a href="#eaptls">Does using EAP-TLS increase the difficulty of attacks?</a></li>
+			<li><a href="#mfp">Does using 802.11w help mitigate attacks?</a></li>
 			<li><a href="#whyimportant">Why is Wi-Fi security important? We already have HTTPS.</a></li>
 			<li><a href="#vpn">Will using a VPN prevent attacks?</a></li>
 			<li><a href="#howfound">How did you discover this?</a></li>
@@ -551,7 +552,30 @@
 		<p>
 		No. All attacks are possible no matter how the client authenticates the network. In other words, attacks are identical
 		against home and enterprise networks. Moreover, it doesn't matter which EAP method you use in an enterprise network:
-		all attack remain possible and can be abused in exactly the same manner.
+		all attacks remain possible and can be abused in exactly the same manner.
+		</p>
+		<p>
+		Important to remark is that exploiting the design flaws relies on a multi-channel machine-in-the-middle position
+		(and abusing CVE-2020-26146 relies on this MitM as well). This MitM is not a traditional rogue AP. Instead, the attacker
+		is copying all frames from the real AP to a different Wi-Fi channel. This can be done no matter which authentication method
+		the network is using. You can read more about this MitM in
+		<a href="https://www.mathyvanhoef.com/2021/05/fragattacks-clarifying-some-aspects.html#rogue-ap">my blog post</a>.
+		</p>
+
+		<h3><a name="mfp" href="#mfp">Does using 802.11w help mitigate attacks?</a></h3>
+		<p>
+		No. Using 802.11w, also known as management frame protection, has no impact on any of the attacks. Even attacks that rely
+		on the multi-channel machine-in-the-middle position (i.e. the design flaws and CVE-2020-26146) remain possible when using 802.11w.
+		This is because this MitM isn't established
+		by sending deauthentication or disassociation frames to first disconnect the client from the network. Instead, to establish
+		this MitM, the attacker forces the client to switch to another channel. This is accomplished by spoofing beacon frames
+		that contain malicious Channel Switch Announcements. These beacon frames can be spoofed even when 802.11w is enabled, meaning
+		that enabling 802.11w won't make attacks harder.
+		</p>
+		<p>
+		You can read more about the multi-channel MitM in
+		<a href="https://www.mathyvanhoef.com/2021/05/fragattacks-clarifying-some-aspects.html#rogue-ap">my blog post</a>.
+		This MitM can be established in precisely the same manner whether or not 802.11w is used.
 		</p>
 
 		<h3><a name="whyimportant" href="#whyimportant">Why is Wi-Fi security important? We already have HTTPS.</a></h3>
